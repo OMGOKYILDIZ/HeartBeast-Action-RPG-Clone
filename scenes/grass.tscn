@@ -1,0 +1,81 @@
+[gd_scene load_steps=13 format=3 uid="uid://c0fwgm6i1lhx5"]
+
+[ext_resource type="Texture2D" uid="uid://b03yxb82n4ssq" path="res://assets/world/grass.png" id="1_e1kak"]
+[ext_resource type="Script" uid="uid://bv8sijiwy5giv" path="res://scripts/grass.gd" id="1_yarb5"]
+[ext_resource type="Texture2D" uid="uid://deojwhknilhn2" path="res://assets/effects/grass_effect.png" id="2_u68v2"]
+[ext_resource type="Script" uid="uid://fgi00nk8ycf1" path="res://scripts/hurtbox.gd" id="4_u68v2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tv2ij"]
+atlas = ExtResource("2_u68v2")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2dfyx"]
+atlas = ExtResource("2_u68v2")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrc1m"]
+atlas = ExtResource("2_u68v2")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ac7a"]
+atlas = ExtResource("2_u68v2")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l56i5"]
+atlas = ExtResource("2_u68v2")
+region = Rect2(128, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g0u2t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tv2ij")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2dfyx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrc1m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ac7a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l56i5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="PackedScene" id="PackedScene_cvbpf"]
+_bundled = {
+"conn_count": 1,
+"conns": PackedInt32Array(1073741825, 1073741824, 6, 5, 2, 0, 0),
+"editable_instances": [],
+"names": PackedStringArray("GrassEffect", "AnimatedSprite2D", "sprite_frames", "autoplay", "frame_progress", "queue_free", "animation_finished"),
+"node_count": 1,
+"node_paths": [NodePath("."), NodePath(".")],
+"nodes": PackedInt32Array(-1, -1, 1, 0, -1, 3, 2, 0, 3, 1, 4, 2, 0),
+"variants": [SubResource("SpriteFrames_g0u2t"), "default", 0.43416312],
+"version": 3
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3kunl"]
+size = Vector2(14, 14)
+
+[node name="Grass" type="Node2D"]
+script = ExtResource("1_yarb5")
+GRASS_EFFECT = SubResource("PackedScene_cvbpf")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_e1kak")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 16
+collision_mask = 16
+script = ExtResource("4_u68v2")
+metadata/_custom_type_script = "uid://fgi00nk8ycf1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("RectangleShape2D_3kunl")
